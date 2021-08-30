@@ -8,7 +8,7 @@ class MathService implements MathServiceInterface
      * @param string $second
      */
     //Вызов функций для сложения с учетом знака
-    public function AdditionTwo(string $first, string $second)
+    public function addition(string $first, string $second)
     {
         if ($first[0] == '-') {
             if ($second[0] == '-') {
@@ -34,7 +34,7 @@ class MathService implements MathServiceInterface
      * @param string $second
      */
     //Вызов функций для вычитания с учетом знака
-    public function Subtraction(string $first, string $second)
+    public function subtraction(string $first, string $second)
     {
         if ($first[0] == '-'){
             if ($second[0] == '-') {
@@ -60,7 +60,7 @@ class MathService implements MathServiceInterface
      * @param string $second
      */
     //Умножение беззнаковых чисел
-    public function Multiplication(string $first, string $second)
+    public function multiplication(string $first, string $second)
     {
         list($first, $second, $sign) = self::getSignForMultiplication($first, $second);
         list($first, $second, $indentResult) = self::getWhole($first, $second);

@@ -2,9 +2,7 @@
 namespace App\MathBundle\Controller;
 
 use App\MathBundle\Service\MathServiceInterface;
-use App\MathBundle\Service\MathValidationServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MathController extends AbstractController
@@ -12,57 +10,35 @@ class MathController extends AbstractController
     /** @var MathServiceInterface */
     private $mathService;
 
-    /** @var MathValidationServiceInterface  */
-    private $mathValidationService;
-
-    public function __construct(MathServiceInterface $mathService, MathValidationServiceInterface $mathValidationService)
+    public function __construct(MathServiceInterface $mathLogger)
     {
-        $this->mathService = $mathService;
-        $this->mathValidationService = $mathValidationService;
+        $this->mathService = $mathLogger;
     }
 
     /**
-     * @Route("/additionTwo", name="additionTwo")
+     * @Route("/addition/{first}/{second}", name="additionTwo")
      */
-    public function additionTwo(Request $request)
+    public function addition(string $first, string $second)
     {
-        if ($this->mathValidationService->ValidateTwoNumber($request))
-            return $this->json([
-                'answer' => $this->mathService->AdditionTwo((string)$request->get('first'), (string)$request->get('second'))
-            ]);
-        else
-            return $this->json([
-                'error' => 'Input data is not valid'
-            ]);
+        $responseMessage = $this->mathService->addition($first, $second);
+        return $this->json($responseMessage);
     }
 
     /**
-     * @Route("/subtraction", name="subtraction")
+     * @Route("/subtraction/{first}/{second}", name="subtraction")
      */
-    public function subtraction(Request $request)
+    public function subtraction(string $first, string $second)
     {
-        if ($this->mathValidationService->ValidateTwoNumber($request))
-            return $this->json([
-                'answer' => $this->mathService->Subtraction((string)$request->get('first'), (string)$request->get('second'))
-            ]);
-        else
-            return $this->json([
-                'error' => 'Input data is not valid'
-            ]);
+        $responseMessage = $this->mathService->subtraction($first, $second);
+        return $this->json($responseMessage);
     }
 
     /**
-     * @Route("/multiplication", name="multiplication")
+     * @Route("/multiplication/{first}/{second}", name="multiplication")
      */
-    public function multiplication(Request $request)
+    public function multiplication(string $first, string $second)
     {
-        if ($this->mathValidationService->ValidateTwoNumber($request))
-            return $this->json([
-                'answer' => $this->mathService->Multiplication((string)$request->get('first'), (string)$request->get('second'))
-            ]);
-        else
-            return $this->json([
-                'error' => 'Input data is not valid'
-            ]);
+        $responseMessage = $this->mathService->multiplication($first, $second);
+        return $this->json($responseMessage);
     }
 }

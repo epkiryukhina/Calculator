@@ -4,13 +4,25 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="math.controller" class="App\MathBundle\Controller\MathController">
-            <argument>math.service</argument>
-            <argument>math.validation.service</argument>
+        <service id="math.controller" class="App\MathBundle\Controller\MathController" autowire="false">
+            <argument type="service" id="math.service.logger.decorator"/>
+        </service>
+
+        <service id="math.service.logger.decorator" class="App\MathBundle\Service\MathServiceLoggerDecorator" autowire="false">
+            <argument type="service" id="math.service.validation.decorator"/>
+            <argument type="service" id="monolog.logger"/>
+        </service>
+
+        <service id="math.service.validation.decorator" class="App\MathBundle\Service\MathServiceValidationDecorator" autowire="false">
+            <argument type="service" id="math.service"/>
         </service>
 
         <service id="math.service" class="App\MathBundle\Service\MathService"/>
 
-        <service id="math.validation.service" class="App\MathBundle\Service\MathValidationService"/>
+        <service id="App\MathBundle\Service\MathServiceInterface $mathLogger" alias="App\MathBundle\Service\MathServiceLoggerDecorator"/>
+
+        <service id="App\MathBundle\Service\MathServiceInterface $mathService" alias="App\MathBundle\Service\MathService"/>
+
+        <service id="App\MathBundle\Service\MathServiceInterface $mathValidator" alias="App\MathBundle\Service\MathServiceValidationDecorator"/>
     </services>
 </container>
