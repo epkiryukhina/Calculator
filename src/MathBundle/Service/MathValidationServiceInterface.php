@@ -9,10 +9,5 @@ interface MathValidationServiceInterface
      * @param Request $request
      * @return bool
      */
-    public function ValidateTwoNumber(Request $request): bool;
-    /**
-     * @param Request $request
-     * @return bool
-     */
-    public function ValidateThreeNumber(Request $request): bool;
+    public function validate(Request $request): bool;
 }

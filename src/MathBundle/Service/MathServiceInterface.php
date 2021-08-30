@@ -11,12 +11,6 @@ interface MathServiceInterface
     /**
      * @param string $first
      * @param string $second
-     * @param string $third
-     */
-    public function AdditionThree(string $first, string $second, string $third);
-    /**
-     * @param string $first
-     * @param string $second
      */
     public function Subtraction(string $first, string $second);
     /**

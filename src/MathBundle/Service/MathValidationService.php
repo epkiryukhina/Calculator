@@ -21,30 +21,12 @@ class MathValidationService implements MathValidationServiceInterface
      * @param Request $request
      * @return bool
      */
-    public function ValidateTwoNumber(Request $request): bool
+    public function validate(Request $request): bool
     {
         if ($request->get('first') != null
             && $request->get('first') != null
             && self::isNumber((string)$request->get('first'))
             && self::isNumber((string)$request->get('second'))) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param Request $request
-     * @return bool
-     */
-    public function ValidateThreeNumber(Request $request): bool
-    {
-        if ($request->get('first') != null
-            && $request->get('first') != null
-            && $request->get('third') != null
-            && self::isNumber((string)$request->get('first'))
-            && self::isNumber((string)$request->get('second'))
-            && self::isNumber((string)$request->get('third'))) {
             return true;
         }
 

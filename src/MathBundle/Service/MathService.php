@@ -32,18 +32,6 @@ class MathService implements MathServiceInterface
     /**
      * @param string $first
      * @param string $second
-     * @param string $third
-     */
-    //Сложение трех чисел
-    public function AdditionThree(string $first, string $second, string $third)
-    {
-        $firstSum = $this->AdditionTwo($first, $second);
-        return $this->AdditionTwo($firstSum, $third);
-    }
-
-    /**
-     * @param string $first
-     * @param string $second
      */
     //Вызов функций для вычитания с учетом знака
     public function Subtraction(string $first, string $second)
