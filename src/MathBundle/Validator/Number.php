@@ -8,5 +8,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class Number extends Constraint
 {
-    public $message = 'The string is not a number';
+
 }
