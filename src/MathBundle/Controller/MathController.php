@@ -37,21 +37,6 @@ class MathController extends AbstractController
     }
 
     /**
-     * @Route("/additionThree", name="additionThree")
-     */
-    public function additionThree(Request $request)
-    {
-        if ($this->mathValidationService->ValidateThreeNumber($request))
-            return $this->json([
-                'answer' => $this->mathService->AdditionThree((string)$request->get('first'), (string)$request->get('second'), (string)$request->get('third'))
-            ]);
-        else
-            return $this->json([
-                'error' => 'Input data is not valid'
-            ]);
-    }
-
-    /**
      * @Route("/subtraction", name="subtraction")
      */
     public function subtraction(Request $request)
