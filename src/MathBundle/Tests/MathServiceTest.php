@@ -14,7 +14,7 @@ class MathServiceTest extends TestCase
         parent::setUp();
     }
 
-    public function AdditionTwoData()
+    public function additionData()
     {
         return [
             'Two wood' => [
@@ -52,18 +52,18 @@ class MathServiceTest extends TestCase
 
     /**
      * @test
-     * @dataProvider AdditionTwoData
+     * @dataProvider additionData
      * @param string $first
      * @param string $second
      * @param int $scale
      */
-    public function AdditionTwo(string $first, string $second, int $scale)
+    public function addition(string $first, string $second, int $scale)
     {
-        $result = $this->mathService->AdditionTwo($first, $second);
+        $result = $this->mathService->addition($first, $second);
         $this->assertEquals(bcadd($first, $second, $scale), $result);
     }
 
-    public function SubstractionData()
+    public function substractionData()
     {
         return [
             'Two wood' => [
@@ -101,18 +101,18 @@ class MathServiceTest extends TestCase
 
     /**
      * @test
-     * @dataProvider SubstractionData
+     * @dataProvider substractionData
      * @param string $first
      * @param string $second
      * @param int $scale
      */
-    public function Subtraction(string $first, string $second, int $scale)
+    public function subtraction(string $first, string $second, int $scale)
     {
-        $result = $this->mathService->Subtraction($first, $second);
+        $result = $this->mathService->subtraction($first, $second);
         $this->assertEquals(bcsub($first, $second, $scale), $result);
     }
 
-    public function MultiplicationData()
+    public function multiplicationData()
     {
         return [
             'Two wood' => [
@@ -150,14 +150,14 @@ class MathServiceTest extends TestCase
 
     /**
      * @test
-     * @dataProvider MultiplicationData
+     * @dataProvider multiplicationData
      * @param string $first
      * @param string $second
      * @param int $scale
      */
-    public function Multiplication(string $first, string $second, int $scale)
+    public function multiplication(string $first, string $second, int $scale)
     {
-        $result = $this->mathService->Multiplication($first, $second);
+        $result = $this->mathService->multiplication($first, $second);
         $this->assertEquals(bcmul($first, $second, $scale), $result);
     }
 }
