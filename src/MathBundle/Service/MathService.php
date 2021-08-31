@@ -71,7 +71,7 @@ class MathService implements MathServiceInterface
 
         for ($i = $length - 1; $i > -1; $i--) {
             list($curResult, $indent) = self::multiplicationInt($first, $second[$i], $indent);
-            $result = self::AdditionTwo($result, $curResult);
+            $result = self::addition($result, $curResult);
         }
 
         if ($indentResult != 0) {
