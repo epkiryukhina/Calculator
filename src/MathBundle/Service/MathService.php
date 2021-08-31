@@ -10,20 +10,31 @@ class MathService implements MathServiceInterface
     //Вызов функций для сложения с учетом знака
     public function addition(string $first, string $second)
     {
-        if ($first[0] == '-') {
-            if ($second[0] == '-') {
-                $result = "-" . self::additionTwoWithoutSign(substr($first, 1, strlen($first) - 1),
-                        substr($second, 1, strlen($second) - 1));
+        if ($first[0] === '-') {
+            if ($second[0] === '-') {
+                $result = "-" . $this->additionWithoutSign(
+                    substr($first, 1, strlen($first) - 1),
+                    substr($second, 1, strlen($second) - 1)
+                );
             }
             else {
-                $result = self::subtractionWithoutSign($second, substr($first, 1, strlen($first) - 1));
+                $result = $this->subtractionWithoutSign(
+                    $second,
+                    substr($first, 1, strlen($first) - 1)
+                );
             }
         }
-        else if ($second[0] == '-') {
-            $result = self::subtractionWithoutSign($first, substr($second, 1, strlen($second) - 1));
+        else if ($second[0] === '-') {
+            $result = $this->subtractionWithoutSign(
+                $first,
+                substr($second, 1, strlen($second) - 1)
+            );
         }
         else {
-            $result = self::additionTwoWithoutSign($first, $second);
+            $result = $this->additionWithoutSign(
+                $first,
+                $second
+            );
         }
 
         return $result;
@@ -36,20 +47,31 @@ class MathService implements MathServiceInterface
     //Вызов функций для вычитания с учетом знака
     public function subtraction(string $first, string $second)
     {
-        if ($first[0] == '-'){
-            if ($second[0] == '-') {
-                $result = self::subtractionWithoutSign(substr($second, 1, strlen($second) - 1),
-                    substr($first, 1, strlen($first) - 1));
+        if ($first[0] === '-') {
+            if ($second[0] === '-') {
+                $result = $this->subtractionWithoutSign(
+                    substr($second, 1, strlen($second) - 1),
+                    substr($first, 1, strlen($first) - 1)
+                );
             }
             else {
-                $result = "-" . self::additionTwoWithoutSign(substr($first, 1, strlen($first) - 1), $second);
+                $result = "-" . $this->additionWithoutSign(
+                    substr($first, 1, strlen($first) - 1),
+                    $second
+                );
             }
         }
-        else if ($second[0] == '-') {
-            $result = self::additionTwoWithoutSign($first, substr($second, 1, strlen($second) - 1));
+        else if ($second[0] === '-') {
+            $result = $this->additionWithoutSign(
+                $first,
+                substr($second, 1, strlen($second) - 1)
+            );
         }
         else {
-            $result = self::subtractionWithoutSign($first, $second);
+            $result = $this->subtractionWithoutSign(
+                $first,
+                $second
+            );
         }
 
         return $result;
@@ -62,16 +84,17 @@ class MathService implements MathServiceInterface
     //Умножение беззнаковых чисел
     public function multiplication(string $first, string $second)
     {
-        list($first, $second, $sign) = self::getSignForMultiplication($first, $second);
-        list($first, $second, $indentResult) = self::getWhole($first, $second);
+        list($first, $second, $sign) = $this->getSignForMultiplication($first, $second);
+        list($first, $second, $indentResult) = $this->getWhole($first, $second);
 
         $length = strlen($second);
         $result = 0;
         $indent = 0;
 
         for ($i = $length - 1; $i > -1; $i--) {
-            list($curResult, $indent) = self::multiplicationInt($first, $second[$i], $indent);
-            $result = self::addition($result, $curResult);
+            list($curResult, $indent) = $this->multiplicationInt($first, $second[$i], $indent);
+
+            $result = $this->addition($result, $curResult);
         }
 
         if ($indentResult != 0) {
@@ -84,7 +107,7 @@ class MathService implements MathServiceInterface
     }
 
     //Получение знака при умножении и множителей без знака
-    protected function getSignForMultiplication($first, $second)
+    private function getSignForMultiplication($first, $second)
     {
         $sign = '';
 
@@ -108,7 +131,7 @@ class MathService implements MathServiceInterface
 
     //Разделение чисел на целую и дробную часть и привидение строк к одному
     //размеру с помощью добавления не значащих 0
-    protected function getWholeAndWood($first, $second)
+    private function getWholeAndWood($first, $second)
     {
         if (strpos($first,'.')) {
             list($firstWhole, $firstWood) = explode('.', $first);
@@ -121,7 +144,7 @@ class MathService implements MathServiceInterface
         if (strpos($second, '.')) {
             list($secondWhole, $secondWood) = explode('.', $second);
         }
-        else{
+        else {
             $secondWhole = $second;
             $secondWood = '';
         }
@@ -155,27 +178,27 @@ class MathService implements MathServiceInterface
     }
 
     //Сложение дробных беззнаковых чисел
-    protected function additionTwoWithoutSign($first, $second)
+    private function additionWithoutSign($first, $second)
     {
-        list($firstWhole, $firstWood, $secondWhole, $secondWood) = self::getWholeAndWood($first, $second);
+        list($firstWhole, $firstWood, $secondWhole, $secondWood) = $this->getWholeAndWood($first, $second);
 
-        list($resultWood, $residue) = self::additionInt($firstWood, $secondWood, 0);
-        list($resultWhole, $residue) = self::additionInt($firstWhole, $secondWhole, $residue);
+        list($resultWood, $residue) = $this->additionInt($firstWood, $secondWood, 0);
+        list($resultWhole, $residue) = $this->additionInt($firstWhole, $secondWhole, $residue);
 
-        if ($residue!=0) {
+        if ($residue !== 0) {
             $resultWhole = $residue . $resultWhole;
         }
 
         if ($resultWood == 0) {
-            return $resultWhole;
+            return  $resultWhole;
         }
         else {
-            return $resultWhole . '.' . $resultWood;
+            return  $resultWhole . '.' . $resultWood;
         }
     }
 
     //Сложение целых беззнаковых чисел
-    protected function additionInt($first, $second, $residue)
+    private function additionInt($first, $second, $residue)
     {
         $length = max(strlen($first), strlen($second));
         $result = "";
@@ -190,28 +213,31 @@ class MathService implements MathServiceInterface
     }
 
     //Вычитание дробных беззнаковых чисел
-    protected function subtractionWithoutSign($first, $second)
+    private function subtractionWithoutSign($first, $second)
     {
-        list($firstWhole, $firstWood, $secondWhole, $secondWood) = self::getWholeAndWood($first, $second);
+        list($firstWhole, $firstWood, $secondWhole, $secondWood) = $this->getWholeAndWood($first, $second);
 
-        if ($firstWhole.'.'.$firstWood > $secondWhole.'.'.$secondWood) {
+        if ($firstWhole . '.' . $firstWood >= $secondWhole . '.' . $secondWood) {
             $result = "";
-            list($resultWood, $residue) = self::subtractionInt($firstWood, $secondWood, 0);
-            list($resultWhole, $residue) = self::subtractionInt($firstWhole, $secondWhole, $residue);
+            list($resultWood, $residue) = $this->subtractionInt($firstWood, $secondWood, 0);
+            list($resultWhole, $residue) = $this->subtractionInt($firstWhole, $secondWhole, $residue);
         }
         else {
             $result = "-";
-            list($resultWood, $residue) = self::subtractionInt($secondWood, $firstWood, 0);
-            list($resultWhole, $residue) = self::subtractionInt($secondWhole, $firstWhole, $residue);
+            list($resultWood, $residue) = $this->subtractionInt($secondWood, $firstWood, 0);
+            list($resultWhole, $residue) = $this->subtractionInt($secondWhole, $firstWhole, $residue);
         }
 
-        $result = $result.$resultWhole . '.' . $resultWood;
-
-        return $result;
+        if ($resultWood == 0) {
+            return $result . $resultWhole;
+        }
+        else {
+            return $result . $resultWhole . '.' . $resultWood;
+        }
     }
 
     //Вычитание целых беззнаковых чисел
-    protected function subtractionInt($first, $second, $residue)
+    private function subtractionInt($first, $second, $residue)
     {
         $length = max(strlen($first), strlen($second));
         $result = "";
@@ -234,7 +260,7 @@ class MathService implements MathServiceInterface
     }
 
     //Получение целых чисел и сдвига
-    protected function getWhole($first, $second)
+    private function getWhole($first, $second)
     {
         $indentResult = 0;
         if ($firstPos = strpos($first, '.')) {
@@ -249,7 +275,7 @@ class MathService implements MathServiceInterface
     }
 
     //Умножение длинного целого числа на цифру с учетом сдвига
-    protected function multiplicationInt($number, $digit, $indent)
+    private function multiplicationInt($number, $digit, $indent)
     {
         $length = strlen($number);
         $result = "";
@@ -257,7 +283,7 @@ class MathService implements MathServiceInterface
 
         for ($i = $length - 1; $i > -1; $i--) {
             $curMultiplication = $number[$i]*$digit + $residue;
-            $result = ($curMultiplication % 10).$result;
+            $result = ($curMultiplication % 10) . $result;
             $residue = intdiv($curMultiplication, 10);
         }
 
