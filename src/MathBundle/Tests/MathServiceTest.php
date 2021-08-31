@@ -128,12 +128,12 @@ class MathServiceTest extends TestCase
             'Two wool and wood' => [
                 'first' => '745',
                 'second' => '0.12',
-                'scale' => 2
+                'scale' => 1
             ],
             'With zero' => [
                 'first' => '745.12',
                 'second' => '0',
-                'scale' => 2
+                'scale' => 0
             ],
             'One with minus' => [
                 'first' => '-745.124567708',
